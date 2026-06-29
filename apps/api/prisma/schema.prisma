@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id        String   @id @default(uuid())
+  name      String
+  subdomain String   @unique
+  createdAt DateTime @default(now())
+  users     User[]
+  plans     Plan[]
+  subscriptions Subscription[]
+}
+
+model User {
+  id            String         @id @default(uuid())
+  tenantId      String
+  tenant        Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  email         String
+  name          String?
+  role          Role           @default(MEMBER)
+  password      String?
+  googleId      String?
+  createdAt     DateTime       @default(now())
+  subscriptions Subscription[]
+
+  @@unique([tenantId, email])
+  @@index([tenantId])
+  @@index([googleId])
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+model Plan {
+  id            String         @id @default(uuid())
+  tenantId      String
+  tenant        Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name          String
+  description   String?
+  price         Int
+  interval      String
+  stripePriceId String
+  stripeProductId String?
+  active        Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  subscriptions Subscription[]
+
+  @@index([tenantId])
+}
+
+model Subscription {
+  id               String    @id @default(uuid())
+  tenantId         String
+  tenant           Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  userId           String
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  planId           String
+  plan             Plan      @relation(fields: [planId], references: [id])
+  status           String
+  stripeSubId      String    @unique
+  currentPeriodEnd DateTime
+  canceledAt       DateTime?
+  createdAt        DateTime  @default(now())
+  invoices         Invoice[]
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([currentPeriodEnd])
+}
+
+model Invoice {
+  id             String       @id @default(uuid())
+  tenantId       String
+  subscriptionId String
+  subscription   Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  amount         Int
+  status         String
+  stripeInvoiceId String?
+  paidAt         DateTime?
+  createdAt      DateTime     @default(now())
+
+  @@index([tenantId])
+  @@index([subscriptionId])
+}
