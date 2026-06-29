@@ -1,0 +1,19 @@
+{
+  "name": "saas-assinaturas",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:api": "npm run dev -w @saas/api",
+    "dev:web": "npm run dev -w @saas/web",
+    "dev": "npm run dev:api & npm run dev:web",
+    "build": "npm run build -w @saas/api && npm run build -w @saas/web",
+    "db:generate": "npm run db:generate -w @saas/api",
+    "db:migrate": "npm run db:migrate -w @saas/api",
+    "db:push": "npm run db:push -w @saas/api"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
