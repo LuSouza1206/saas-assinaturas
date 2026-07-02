@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f0f3f7;
+  --fg: #0a2540;
+  --muted: #6b7c93;
+  --line: #d6dee8;
+  --accent: #0a2540;
+  --signal: #0d9488;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(13, 148, 136, 0.22);
+}
+
+.ledger-atmosphere {
+  background-color: #0a2540;
+  background-image:
+    linear-gradient(105deg, rgba(13, 148, 136, 0.18) 0%, transparent 42%),
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: auto, 48px 48px, 48px 48px;
+  background-position: 0 0, 0 0, 0 0;
+}
+
+.input-field {
+  @apply w-full rounded border border-line bg-paper-raised px-3.5 py-2.5 text-sm text-ink outline-none transition placeholder:text-ink-faint focus:border-ink/40 focus:ring-2 focus:ring-accent-signal/25;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center rounded border border-ink bg-ink px-4 py-2.5 text-sm font-medium text-ink-inverse transition hover:bg-accent-hover disabled:opacity-50;
+}
+
+.btn-ghost {
+  @apply inline-flex items-center justify-center rounded border border-line bg-transparent px-4 py-2.5 text-sm font-medium text-ink transition hover:border-line-strong hover:bg-paper-sunken;
+}
+
+.btn-danger {
+  @apply inline-flex items-center justify-center rounded border border-line bg-transparent px-3 py-1.5 text-xs font-medium text-ink-soft transition hover:border-danger/40 hover:bg-danger-soft hover:text-danger;
+}
+
+.label-caps {
+  @apply text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-faint;
+}
