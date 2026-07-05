@@ -47,6 +47,6 @@ services:
 
 databases:
   - name: ledgerflow-db
-    plan: basic_256mb
+    plan: free
     databaseName: saas_assinaturas
     user: saas
