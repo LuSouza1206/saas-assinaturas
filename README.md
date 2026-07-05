@@ -1,8 +1,22 @@
+<div align="center">
+
 # Ledgerflow
 
-SaaS B2B **multi-tenant** de gestão de assinaturas: empresas cadastram planos, clientes assinam, o sistema cobra recorrentemente via Stripe e cada empresa (tenant) enxerga apenas os próprios dados — isolamento verificado por teste automatizado, não apenas por convenção.
+<p>
+  <strong>PT</strong> · <a href="./README.en.md">EN</a>
+</p>
 
-> Projeto construído para consolidar arquitetura de produção: multi-tenancy real, fila de processamento assíncrono, autenticação com JWT + OAuth2, observabilidade de erros e deploy completo (API + web) em serviços gerenciados.
+<p>SaaS B2B multi-tenant de assinaturas — Stripe, BullMQ e isolamento por tenant com teste automatizado.</p>
+
+<p>
+  <img alt="multi-tenant" src="https://img.shields.io/badge/architecture-multi--tenant-0A66C2" />
+  <img alt="Next.js" src="https://img.shields.io/badge/Next.js-14-000000" />
+  <img alt="Express" src="https://img.shields.io/badge/Node-Express-000000" />
+  <img alt="Stripe" src="https://img.shields.io/badge/billing-Stripe-635BFF" />
+  <img alt="BullMQ" src="https://img.shields.io/badge/queue-BullMQ-000000" />
+</p>
+
+</div>
 
 ---
 
