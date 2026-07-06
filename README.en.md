@@ -9,6 +9,9 @@
 <p>B2B multi-tenant subscription SaaS — Stripe, BullMQ, and tenant isolation backed by an automated test.</p>
 
 <p>
+  <a href="https://saas-assinaturas-web-pearl.vercel.app">
+    <img alt="status: live" src="https://img.shields.io/badge/status-live-0A66C2" />
+  </a>
   <img alt="multi-tenant" src="https://img.shields.io/badge/architecture-multi--tenant-0A66C2" />
   <img alt="Next.js" src="https://img.shields.io/badge/Next.js-14-000000" />
   <img alt="Express" src="https://img.shields.io/badge/Node-Express-000000" />
