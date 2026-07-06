@@ -14,7 +14,7 @@ function required(key: string, fallback?: string): string {
 
 export const env = {
   nodeEnv: process.env.NODE_ENV ?? "development",
-  port: Number(process.env.API_PORT ?? 4000),
+  port: Number(process.env.PORT ?? process.env.API_PORT ?? 4000),
   databaseUrl: required("DATABASE_URL", "postgresql://saas:saas_secret@localhost:5432/saas_assinaturas?schema=public"),
   redisUrl: required("REDIS_URL", "redis://localhost:6379"),
   jwtSecret: required("JWT_SECRET", "dev-only-change-me-in-production"),

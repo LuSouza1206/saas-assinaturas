@@ -8,6 +8,9 @@ export function getRedis(): Redis {
     redis = new Redis(env.redisUrl, {
       maxRetriesPerRequest: null,
       enableReadyCheck: true,
+      connectTimeout: 8000,
+      lazyConnect: false,
+      tls: env.redisUrl.startsWith("rediss://") ? {} : undefined,
     });
   }
   return redis;

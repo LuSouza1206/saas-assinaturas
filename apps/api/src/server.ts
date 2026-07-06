@@ -47,9 +47,8 @@ app.get(
       dbOk = false;
     }
     const redisOk = await pingRedis();
-    const status = dbOk && redisOk ? "ok" : "degraded";
-    res.status(status === "ok" ? 200 : 503).json({
-      status,
+    res.status(dbOk ? 200 : 503).json({
+      status: dbOk && redisOk ? "ok" : dbOk ? "degraded" : "down",
       db: dbOk ? "up" : "down",
       redis: redisOk ? "up" : "down",
       timestamp: new Date().toISOString(),
@@ -93,6 +92,10 @@ async function redisSupportsBullMQ(): Promise<boolean> {
     const client = getRedis();
     if (client.status !== "ready") {
       await new Promise<void>((resolve, reject) => {
+        const timer = setTimeout(() => {
+          cleanup();
+          reject(new Error("Redis ready timeout"));
+        }, 8000);
         const onReady = () => {
           cleanup();
           resolve();
@@ -102,6 +105,7 @@ async function redisSupportsBullMQ(): Promise<boolean> {
           reject(err);
         };
         const cleanup = () => {
+          clearTimeout(timer);
           client.off("ready", onReady);
           client.off("error", onError);
         };
@@ -122,19 +126,19 @@ async function redisSupportsBullMQ(): Promise<boolean> {
 }
 
 async function bootstrap() {
+  app.listen(env.port, "0.0.0.0", () => {
+    console.log(`[api] listening on 0.0.0.0:${env.port}`);
+  });
+
   if (await redisSupportsBullMQ()) {
     startBillingWorker();
     startEmailWorker();
     startBillingCron();
   } else {
     console.warn(
-      "[api] Redis < 5 detected — skipping BullMQ workers/cron (API still runs)"
+      "[api] Redis unavailable or < 5 — skipping BullMQ workers/cron (API still runs)"
     );
   }
-
-  app.listen(env.port, () => {
-    console.log(`[api] listening on http://localhost:${env.port}`);
-  });
 }
 
 bootstrap().catch((err) => {
