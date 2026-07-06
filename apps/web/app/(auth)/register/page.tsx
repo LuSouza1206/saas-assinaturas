@@ -78,8 +78,17 @@ export default function RegisterPage() {
                   name="subdomain"
                   required
                   pattern="[a-z0-9-]+"
+                  title="Só letras minúsculas, números e hífen"
                   className="input-field"
                   placeholder="sua-empresa"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  spellCheck={false}
+                  onInput={(e) => {
+                    const el = e.currentTarget;
+                    const next = el.value.toLowerCase().replace(/[^a-z0-9-]/g, "");
+                    if (el.value !== next) el.value = next;
+                  }}
                 />
                 <span className="shrink-0 text-sm text-ink-faint">
                   .ledgerflow.app

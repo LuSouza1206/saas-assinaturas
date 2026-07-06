@@ -73,8 +73,14 @@ export async function api<T>(
   const data = await res.json().catch(() => ({}));
 
   if (!res.ok) {
+    const detailMsg = Array.isArray(data.details)
+      ? data.details
+          .map((d: { message?: string }) => d.message)
+          .filter(Boolean)
+          .join(" · ")
+      : "";
     throw new ApiError(
-      data.error ?? "Request failed",
+      detailMsg || data.error || "Request failed",
       res.status,
       data.code
     );

@@ -91,8 +91,15 @@ export default function LoginPage() {
                 className="input-field"
                 placeholder="sua-empresa"
                 autoComplete="organization"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
                 value={subdomain}
-                onChange={(e) => setSubdomain(e.target.value)}
+                onChange={(e) =>
+                  setSubdomain(
+                    e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "")
+                  )
+                }
               />
             </label>
             <label className="block space-y-1.5">

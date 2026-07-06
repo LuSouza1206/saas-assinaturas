@@ -11,7 +11,10 @@ export const registerSchema = z.object({
     .string()
     .min(2)
     .max(40)
-    .regex(/^[a-z0-9-]+$/, "Subdomain must be lowercase alphanumeric/hyphens"),
+    .transform((s) => s.trim().toLowerCase())
+    .refine((s) => /^[a-z0-9-]+$/.test(s), {
+      message: "Workspace: use só letras minúsculas, números e hífen",
+    }),
   email: z.string().email(),
   password: z.string().min(8).max(128),
   name: z.string().min(1).max(100).optional(),
@@ -20,7 +23,11 @@ export const registerSchema = z.object({
 export const loginSchema = z.object({
   email: z.string().email(),
   password: z.string().min(1),
-  subdomain: z.string().min(2).max(40),
+  subdomain: z
+    .string()
+    .min(2)
+    .max(40)
+    .transform((s) => s.trim().toLowerCase()),
 });
 
 export type RegisterInput = z.infer<typeof registerSchema>;
