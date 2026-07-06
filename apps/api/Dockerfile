@@ -1,10 +1,12 @@
 FROM node:20-alpine AS deps
+RUN apk add --no-cache openssl libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json* ./
 COPY apps/api/package.json ./apps/api/
 RUN npm install --workspace=@saas/api --include-workspace-root
 
 FROM node:20-alpine AS build
+RUN apk add --no-cache openssl libc6-compat
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/package.json ./package.json
@@ -13,6 +15,7 @@ WORKDIR /app/apps/api
 RUN npx prisma generate && npx tsc
 
 FROM node:20-alpine AS runner
+RUN apk add --no-cache openssl libc6-compat
 WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=build /app/node_modules ./node_modules
