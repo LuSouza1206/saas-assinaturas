@@ -9,6 +9,12 @@
 <p>B2B multi-tenant subscription SaaS — Stripe, BullMQ, and tenant isolation backed by an automated test.</p>
 
 <p>
+  <a href="https://saas-assinaturas-web-pearl.vercel.app"><strong>Demo</strong></a>
+  ·
+  <a href="https://ledgerflow-api-mc1h.onrender.com/health"><strong>API</strong></a>
+</p>
+
+<p>
   <a href="https://saas-assinaturas-web-pearl.vercel.app">
     <img alt="status: live" src="https://img.shields.io/badge/status-live-0A66C2" />
   </a>
@@ -247,6 +253,10 @@ Creates Tenant A and B, adds a plan on A, and fails (`exit 1`) if B can see it.
 ---
 
 ## Deploy
+
+**Production**
+- Demo: https://saas-assinaturas-web-pearl.vercel.app  
+- API: https://ledgerflow-api-mc1h.onrender.com (`/health`)
 
 Full guide: [`docs/DEPLOY.md`](./docs/DEPLOY.md). Checklist: [`docs/CREDENTIALS-CHECKLIST.md`](./docs/CREDENTIALS-CHECKLIST.md).
 

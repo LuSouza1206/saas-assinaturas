@@ -9,6 +9,12 @@
 <p>SaaS B2B multi-tenant de assinaturas — Stripe, BullMQ e isolamento por tenant com teste automatizado.</p>
 
 <p>
+  <a href="https://saas-assinaturas-web-pearl.vercel.app"><strong>Demo</strong></a>
+  ·
+  <a href="https://ledgerflow-api-mc1h.onrender.com/health"><strong>API</strong></a>
+</p>
+
+<p>
   <a href="https://saas-assinaturas-web-pearl.vercel.app">
     <img alt="status: live" src="https://img.shields.io/badge/status-live-0A66C2" />
   </a>
@@ -272,6 +278,10 @@ O script cria dois tenants (`Tenant A` e `Tenant B`) do zero, cadastra um plano 
 ---
 
 ## Deploy
+
+**Produção**
+- Demo: https://saas-assinaturas-web-pearl.vercel.app  
+- API: https://ledgerflow-api-mc1h.onrender.com (`/health`)
 
 Guia completo em [`docs/DEPLOY.md`](./docs/DEPLOY.md) e checklist de credenciais em [`docs/CREDENTIALS-CHECKLIST.md`](./docs/CREDENTIALS-CHECKLIST.md). Resumo da ordem:
 
